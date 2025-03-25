@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"os"
+	"os/exec"
 
 	"gopkg.in/yaml.v3"
 )
@@ -32,7 +34,22 @@ func main() {
 	searchDebugingStatements()
 }
 
-// This search will be a wrapper around grep
-// Example: grep -rEoH '\b(echo|dd|print|console\.log|DEBUG:|logger\.debug)\b.*' ./project
+// ATM just playing around not a implemented version
+// Figuring out what I want to do
 func searchDebugingStatements() {
+	var keywords string
+	var search string
+	for _, k := range c.DebugKeywords {
+		keywords += k
+	}
+	for _, s := range c.SearchPaths {
+		search += s
+	}
+	cmd := exec.Command("sh", "-c", fmt.Sprintf("grep -rEoHn '%s' %s", keywords, search))
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	fmt.Println(string(output))
 }

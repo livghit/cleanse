@@ -1,11 +1,7 @@
 # Search path should only be a path to a folder the app will scan every Folder by default
 search_paths:
-  - "./project_path"
+  - "./project2"
 # Debugging Keywords you want to search for .
 # We are working to pakets that have know debugging keywords based on Project Tech-Stack
 debug_keywords:
-  - "println!"
-  - "console.log"
-  - "print("
-  - "DEBUG:"
-  - "logger.debug"
+  - "debugDump|var_dump|ob_start|ob_get_clean|file_put_contents|debug_log"
