@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
 	"gopkg.in/yaml.v3"
@@ -33,8 +32,7 @@ func main() {
 	searchDebugingStatements()
 }
 
+// This search will be a wrapper around grep
+// Example: grep -rEoH '\b(echo|dd|print|console\.log|DEBUG:|logger\.debug)\b.*' ./project
 func searchDebugingStatements() {
-	for _, path := range c.SearchPaths {
-		fmt.Println(path)
-	}
 }
