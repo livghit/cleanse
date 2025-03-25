@@ -1,8 +1,0 @@
-lib: [
-  "_build/install/default/lib/cleanse/META"
-  "_build/install/default/lib/cleanse/dune-package"
-  "_build/install/default/lib/cleanse/opam"
-]
-bin: [
-  "_build/install/default/bin/cleanse"
-]

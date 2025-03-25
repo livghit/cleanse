@@ -1,0 +1,10 @@
+search_paths:
+  - "./project"
+  - "./project"
+
+debug_keywords:
+  - "println!"
+  - "console.log"
+  - "print("
+  - "DEBUG:"
+  - "logger.debug"
