@@ -1,4 +1,6 @@
 # Search path should only be a path to a folder the app will scan every Folder by default
+preset:
+  "php"
 search_paths:
   - "./project2"
 # Debugging Keywords you want to search for .

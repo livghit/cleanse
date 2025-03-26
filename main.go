@@ -11,6 +11,7 @@ import (
 type conf struct {
 	SearchPaths   []string `yaml:"search_paths"`
 	DebugKeywords []string `yaml:"debug_keywords"`
+	Preset        string   `yaml:"preset"`
 }
 
 func (c *conf) loadConf() *conf {
@@ -31,20 +32,29 @@ var c conf
 
 func main() {
 	c.loadConf()
-	searchDebugingStatements()
+	if c.Preset == "" {
+		fmt.Printf("No preset found trying to use custom config cleanse.yml file")
+		searchDebugingStatementsViaCustomConfig()
+
+	} else {
+		// this will return the preset config need also to parse it
+		loadPreset()
+		searchDebugingStatementsViaPreset()
+	}
 }
 
-// ATM just playing around not a implemented version
-// Figuring out what I want to do
-func searchDebugingStatements() {
+func searchDebugingStatementsViaCustomConfig() {
 	var keywords string
 	var search string
-	for _, k := range c.DebugKeywords {
-		keywords += k
+	if c.Preset != "" {
+		for _, k := range c.DebugKeywords {
+			keywords += k
+		}
+		for _, s := range c.SearchPaths {
+			search += s
+		}
 	}
-	for _, s := range c.SearchPaths {
-		search += s
-	}
+
 	cmd := exec.Command("sh", "-c", fmt.Sprintf("grep -rEoHn '%s' %s", keywords, search))
 	output, err := cmd.CombinedOutput()
 	if err != nil {
@@ -52,4 +62,20 @@ func searchDebugingStatements() {
 		return
 	}
 	fmt.Println(string(output))
+}
+
+func searchDebugingStatementsViaPreset() {
+	fmt.Println("Preset searching")
+}
+
+func loadPreset() {
+	// Search for the presets atm in a folder later in git repo and we search for it there
+	preset, err := os.ReadFile(fmt.Sprintf("./presets/%s.yml", c.Preset))
+	if err != nil {
+		fmt.Printf("Preset %s not found.", c.Preset)
+	}
+
+	fmt.Println("Found preset:")
+	fmt.Println(preset)
+
 }

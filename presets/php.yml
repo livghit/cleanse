@@ -1,0 +1,3 @@
+# Known usefull debugging functions on php
+debug_keywords:
+  - "debugDump|var_dump|ob_start|ob_get_clean|file_put_contents|debug_log"
