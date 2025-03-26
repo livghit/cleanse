@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
-	"os/exec"
 
+	"github.com/livghit/cleanse/cmd"
 	"gopkg.in/yaml.v3"
 )
 
@@ -55,13 +55,16 @@ func searchDebugingStatementsViaCustomConfig() {
 		}
 	}
 
-	cmd := exec.Command("sh", "-c", fmt.Sprintf("grep -rEoHn '%s' %s", keywords, search))
-	output, err := cmd.CombinedOutput()
+	command := cmd.Command{
+		Name: "grep -rEoHn",
+		Args: []string{keywords, search},
+	}
+	output, err := command.Run()
 	if err != nil {
 		fmt.Println("Error:", err)
 		return
 	}
-	fmt.Println(string(output))
+	fmt.Println(output)
 }
 
 func searchDebugingStatementsViaPreset() {
